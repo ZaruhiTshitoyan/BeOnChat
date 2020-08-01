@@ -1,0 +1,115 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    //   "plugin:react/recommended",
+    //   "airbnb",
+    //   "react-app"
+  ],
+  "parser": "babel-eslint",
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "comma-dangle": 1,
+    "no-useless-escape": 1,
+    "no-shadow": 1,
+    "import/prefer-default-export": "off",
+    "react/state-in-constructor": 1,
+    "object-curly-newline": 1,
+    "consistent-return": 1,
+    "react/button-has-type": 0,
+    "jsx-a11y/label-has-associated-control": 0,
+    "curly": [2, "multi-line"],
+    "new-cap": 0,
+    "no-else-return": 0,
+    "no-console": 0,
+    "no-mixed-operators": 0,
+    "no-param-reassign": 0,
+    "no-prototype-builtins": 0,
+    "no-underscore-dangle": 0,
+    "no-eval": 0,
+    "no-case-declarations": 0,
+    "no-plusplus": 0,
+    "no-unused-vars": "warn",
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true
+      }
+    ],
+    "dot-notation": ["off", { "allowKeywords": false }],
+    "no-bitwise": "warn",
+    "no-debugger": "error",
+    "global-require": 0,
+    "arrow-parens": [0, "as-needed"],
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "import/imports-first": 0,
+    "indent": 2,
+    "semi": [2, "always"],
+    "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
+    "no-unexpected-multiline": "error",
+    "space-in-parens": [2, "never"],
+    "space-before-blocks": "error",
+    "space-infix-ops": "error",
+    "beforeColon": false,
+    "afterColon": true,
+    "max-statements-per-line": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "object-property-newline": "error",
+    "object-curly-spacing": ["error", "always"],
+    "no-multiple-empty-lines": [
+      2,
+      {
+        "max": 1,
+        "maxEOF": 0,
+        "maxBOF": 0
+      }
+    ],
+    "linebreak-style": ["error", "unix"],
+    "keyword-spacing": ["error", { "after": true, "before": true }],
+    "quotes": [
+      2,
+      "double",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "no-use-before-define": 0,
+    "no-restricted-syntax": 0,
+    "prefer-const": 2,
+    "max-len": [
+      "error",
+      {
+        "code": 200,
+        "ignoreComments": true,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true,
+        "ignorePattern": "^\\s*var\\s.+=\\s*require\\s*\\("
+      }
+    ]
+  }
+}
