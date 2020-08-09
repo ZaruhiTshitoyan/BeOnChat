@@ -1,101 +1,19 @@
-body {
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: gray;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.registerBtn {
-  float: right;
-  background: darkslategrey;
-  color: #ffffff;
-  height: 35px;
+  padding: 0;
   box-sizing: border-box;
-  padding: 4px 10px;
-  border: 1px solid #d0d0d0;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-top: -35px;
 }
 
-.registerBtn:hover {
-  background: black;
+html,body{
+  height: 100%;
+}
+html{
+  font-family: Arial,Helvetica,sans-serif;
+  background: linear-gradient(to right, slateblue,darkslateblue 100%);
+  font-size: 10px;
+}
+body{
+  display:grid;
+  place-items: center;
 }
 
-.Error {
-  padding: 10px;
-  background-color: #feeaea;
-  border: 1px solid #fadadb;
-  margin-bottom: 10px;
-  border-radius: 3px;
-}
-
-.loginBtn {
-  color: #ffffff;
-  height: 35px;
-  box-sizing: border-box;
-  padding: 4px 10px;
-  background: darkslategrey;
-  border: 1px solid #d0d0d0;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.loginBtn:hover {
-  background: black;
-}
-
-.form_block {
-  width: 400px;
-  display: table;
-  margin-top: 10%;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.form_block > #title {
-  background: darkslategrey;
-  padding: 10px;
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
-}
-
-.form_block > .tile-block {
-  background: gray;
-  padding: 10px;
-  display: table;
-}
-
-input[type="text"],
-input[type="password"] {
-  height: 35px;
-  width: 100%;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  padding: 4px 5px;
-  background: darkslategrey;
-  border: 1px solid darkslategrey;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
