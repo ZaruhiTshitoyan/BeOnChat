@@ -8,7 +8,7 @@ const config = {
   storageBucket: "react-chatapp-js.appspot.com",
   messagingSenderId: "361610503109",
   appId: "1:361610503109:web:09de92431941c577fd61ac",
-  measurementId: "G-PWS0BQWWGW",
+  measurementId: "G-PWS0BQWWGW"
 };
 
 const firebase_config = firebase.initializeApp(config);

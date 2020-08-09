@@ -1,0 +1,47 @@
+.uiMessage :global {
+  position: absolute;
+  top: -240px;
+  right: 40%;
+  color: var(--myWhiteColor);
+  animation: 10s uiMessage forwards;
+  z-index: 999;
+}
+
+.uiWarningMessage {
+  margin-top: 5px;
+  color: var(--myUiWarningMessageColor);
+  font-size: 1em;
+  text-align: center;
+}
+
+.validationMessage {
+  margin-top: 5px;
+  color: var(--myUiErrorMessageColor);
+  font-size: 1em;
+}
+
+.errorRed {
+  border-color: var(--myUiErrorMessageColor);
+}
+
+.linkMediumBlue {
+  color: var(--blue-200);
+}
+
+.noUsernameAlertImage {
+  height: 250px;
+  width: 250px;
+}
+
+@keyframes :global(uiMessage) {
+  10% {
+    top: -240px;
+  }
+  70% {
+    top: 100px;
+  }
+  100% {
+    top: -240px;
+    visibility: hidden;
+  }
+}

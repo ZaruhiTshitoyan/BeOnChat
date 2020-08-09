@@ -1,0 +1,42 @@
+.formWrapper {
+  width: 450px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 50%;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.formItem {
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.formHeader__title {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 20px 30px;
+}
+
+@media only screen and (max-width: 520px) {
+  .formWrapper {
+    height: auto;
+    width: 100%;
+  }
+}

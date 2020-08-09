@@ -1,0 +1,28 @@
+.joinContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../images/blueplanet.jpg");
+  background-size: cover;
+}
+
+.formWrapper {
+  composes: formWrapper from "./Form.css"
+}
+
+.formItem {
+  composes: formItem from "./Form.css"
+}
+
+.formHeader {
+  composes: formHeader from "./Form.css"
+}
+
+.formHeader__title {
+  composes: formHeader__title from "./Form.css"
+}
+
+.rocketImage {
+  composes: rocketImage from "./Main.css";
+}

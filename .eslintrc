@@ -61,15 +61,19 @@
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "import/imports-first": 0,
-    "indent": 2,
+    "indent": ["error", 2],
     "semi": [2, "always"],
     "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
     "no-unexpected-multiline": "error",
     "space-in-parens": [2, "never"],
     "space-before-blocks": "error",
     "space-infix-ops": "error",
-    "beforeColon": false,
-    "afterColon": true,
+    "key-spacing": [
+      "error", {
+        "beforeColon": false,
+        "afterColon": true
+      }
+    ],
     "max-statements-per-line": [
       "error",
       {

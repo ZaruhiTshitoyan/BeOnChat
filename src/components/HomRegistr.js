@@ -1,13 +1,13 @@
 import React from "react";
-import firebas from "../config/firebase";
-import Home from "./Home";
-import Register from "./Register";
+import firebase_config from "@/config/firebase";
+import Home from "@/pages/Home";
+import Register from "@/pages/Register";
 
 class HomRegistr extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: null,
+      user: null
     };
   }
   componentDidMount() {
@@ -15,7 +15,7 @@ class HomRegistr extends React.Component {
   }
 
   authListener = () => {
-    firebas.auth().onAuthStateChanged((user) => {
+    firebase_config.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
       } else {

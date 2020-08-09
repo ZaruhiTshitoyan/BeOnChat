@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import firebas from "../config/firebase";
+
+import firebase_config from "@/config/firebase";
+
+import Input from "@/components/uiLibrary/Input";
+
 const Register = () => {
   const [user, setUser] = useState({
     fullName: "",
@@ -7,36 +11,37 @@ const Register = () => {
     password: "",
     fireError: "",
     formTitle: "Login",
-    loginButton: true,
+    loginButton: true
   });
 
-  const handleChange = (e) => {
+  const handleChange = (name, value) => {
+    console.log(name, value, 546);
     setUser({
       ...user,
-      [e.target.name]: e.target.value,
+      [name]: value
     });
   };
   const login = (e) => {
     e.preventDefault();
-    firebas
+    firebase_config
       .auth()
       .signInWithEmailAndPassword(user.email, user.password)
       .catch((error) => {
         setUser({
           ...user,
-          fireError: error.message,
+          fireError: error.message
         });
       });
   };
   const register = (e) => {
     e.preventDefault();
-    firebas
+    firebase_config
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
       .catch((error) => {
         setUser({
           ...user,
-          fireError: error.message,
+          fireError: error.message
         });
       });
   };
@@ -46,22 +51,22 @@ const Register = () => {
         ...user,
         formTitle: "Register New User",
         loginButton: false,
-        fireError: "",
+        fireError: ""
       });
     } else {
       setUser({
         ...user,
         formTitle: "Login",
         loginButton: true,
-        fireError: "",
+        fireError: ""
       });
     }
   };
 
-  let errorNotification = user.fireError ? (
+  const errorNotification = user.fireError ? (
     <div className={"Error"}>{user.fireError}</div>
   ) : null;
-  let submitBtn = user.loginButton ? (
+  const submitBtn = user.loginButton ? (
     <input className="loginBtn" type="submit" onClick={login} value="Enter" />
   ) : (
     <>
@@ -75,7 +80,7 @@ const Register = () => {
       />{" "}
     </>
   );
-  let login_register = user.loginButton ? (
+  const login_register = user.loginButton ? (
     <button className="registerBtn" onClick={() => getAction("reg")}>
       Register
     </button>
@@ -91,17 +96,17 @@ const Register = () => {
       <div className={"tile-block"}>
         {errorNotification}
         <form>
-          <input
+          <Input
             type={"text"}
             value={user.email}
-            onChange={handleChange}
+            onChange={value => handleChange("email", value)}
             name={"email"}
             placeholder={"email"}
           />
-          <input
+          <Input
             type={"password"}
             value={user.password}
-            onChange={handleChange}
+            onChange={value => handleChange("password", value)}
             name={"password"}
             placeholder={"password"}
           />
