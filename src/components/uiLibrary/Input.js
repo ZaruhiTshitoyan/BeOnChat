@@ -1,28 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-// import {
-//   validateEmail,
-//   validatePassword,
-//   validateUsername
-// } from "../helpers/validationRules";
-// import RenderUiMessages from "./uiMessages/RenderUiMessages";
+import RenderUiMessages from "./uiMessages/RenderUiMessages";
 
 import styles from "@/styles/Input.css";
 
-const Input = ({ errorMessage, validateType, onChange, className, required, ...rest }) => {
+const Input = React.forwardRef(({ errorMessage, validateType, value, onChange, onMount, className, required, ...rest }, ref) => {
 
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
+  
   const [hasError, setHasError] = useState(false);
 
-  const isValid = hasError => {
-    setHasError({
-      hasError
-    });
-  };
-
   const checkValidType = () => {
-    // const { value } = this.state;
-    // let hasError = false;
+    let hasError = false;
     if (required && !value) {
       hasError = true;
     }
@@ -45,8 +34,8 @@ const Input = ({ errorMessage, validateType, onChange, className, required, ...r
     default:
       break;
     }
-    isValid();
-    // return hasError;
+    // setHasError({ hasError });
+    return hasError;
   };
 
   const onInputChange = e => {
@@ -55,23 +44,29 @@ const Input = ({ errorMessage, validateType, onChange, className, required, ...r
       target
     } = e;
     onChange(target.value);
-    setValue(target.value);
+    // setValue(target.value);
     // this.setState({
     //   value
     // });
   };
 
+  // useEffect(() => {
+  //   console.log(ref, ref.current.checkValidType, 558);
+  //   onMount(checkValidType());
+  // }, []);
+
   return (
     <div>
       <input
+        ref={ref}
         {...rest}
-        className={`${styles.input} ${hasError ? className : ""}`}
+        className={`${styles.input} ${hasError ? styles.errorRed : ""}`}
         onChange={onInputChange}
-        onBlur={checkValidType}
+        // onBlur={checkValidType}
       />
-      {/* <RenderUiMessages className="validationMessage" type="warning" errorMessage={hasError}>{errorMessage}</RenderUiMessages> */}
+      <RenderUiMessages className="validationMessage" type="warning" errorMessage={hasError}>{errorMessage}</RenderUiMessages>
     </div>
   );
-};
+});
 
 export default Input;

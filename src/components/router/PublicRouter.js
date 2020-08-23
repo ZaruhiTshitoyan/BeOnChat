@@ -2,17 +2,26 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-const PublicRoute = ({ component: Component, isLoggedUser, ...rest }) => {
+import Header from "@/components/Header";
+
+const PublicRoute = ({ component: Component, isHeader, isLoggedUser, ...rest }) => {
   console.log(999999, isLoggedUser);
   return (
     <Route
       {...rest}
-      render={props => (isLoggedUser ? (
-        <Redirect to={{ pathname: "/",
-          state: { from: props.location } }} />
-      ) : (
-        <Component {...props} />
-      ))}
+      render={props => {
+        // isLoggedUser ? (
+        //   <Redirect to={{ pathname: "/",
+        //     state: { from: props.location } }} />
+        // ) : (
+        return (
+          <>
+            {isHeader ? <Header /> : ""}
+            <Component {...props} />
+          </>
+        );
+      }
+      }
     />
   );
 };

@@ -21,7 +21,8 @@
 }
 
 .errorRed {
-  border-color: var(--myUiErrorMessageColor);
+  border-color: #ff0000;
+  /* var(--myUiErrorMessageColor); */
 }
 
 .linkMediumBlue {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -23,27 +23,34 @@ const styles = { ...login,
 
 const Login = ({ onLogin, clearUiMessage, uiMessage }) => {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [authUser, setAuthUser] = useState(
+    { email: "",
+      password: ""
+    });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: ""
+  });
 
-  const emailRef = React.createRef();
+  const emailRef = useRef();
 
-  const passwordRef = React.createRef();
+  const passwordRef = useRef();
 
   clearUiMessage();
 
-  onReset = () => {
-    setEmail("");
-    setPassword("");
+  const handleChange = (name, value) => {
+    setAuthUser({
+      ...authUser,
+      [name]: value
+    });
   };
 
   const onSubmit = () => {
-    const notValidUserData = isFormValid([emailRef, passwordRef]);
-    if (notValidUserData) return null;
+    setErrors(isFormValid(authUser));
+    if (errors.email || errors.password) return null;
     clearUiMessage();
-    onLogin({ email,
-      password });
-    onReset();
+    onLogin({ email: authUser.email,
+      password: authUser.password });
   };
 
   const loginWarningMessage = (
@@ -69,35 +76,32 @@ const Login = ({ onLogin, clearUiMessage, uiMessage }) => {
         <div className={styles.formHeader}>
           <div className={styles.formHeaderTitle}>
             <img className={styles.rocketImage} src={logoImage} alt="logo" />
-            <Title size="x-large">Qwerty</Title>
+            <Title size="x-large">Login to your Account</Title>
           </div>
-          <Title size="medium">Login to your Account</Title>
         </div>
         <Form onSubmit={onSubmit}>
           <div className={styles.formItem}>
-            <Label htmlFor="username">Username</Label>
             <Input
               ref={emailRef}
-              className={styles.errorRed}
               required
               type="text"
               id="email"
-              value={email}
+              value={authUser.email}
               placeholder="Email"
-              onChange={value => setEmail(value)}
+              validateType="email"
+              onChange={value => handleChange("email", value)}
             />
           </div>
           <div className={styles.formItem}>
-            <Label htmlFor="password">Password</Label>
             <Input
               ref={passwordRef}
-              className={styles.errorRed}
               required
               type="password"
               id="password"
-              value={password}
+              value={authUser.password}
               placeholder="Password"
-              onChange={value => setPassword(value)}
+              validateType="password"
+              onChange={value => handleChange("password", value)}
             />
           </div>
           <div className={styles.uiWarningMessage}>{loginWarningMessage}</div>

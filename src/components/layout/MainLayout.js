@@ -2,11 +2,13 @@ import React from "react";
 
 import Header from "@/components/Header";
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ header, children }) => {
+  console.log("header", header);
+  const displayHeader = header ? <Header/> : "";
 
   return (
     <div>
-      <Header/>
+      { displayHeader }
       { children }
     </div>
   );
