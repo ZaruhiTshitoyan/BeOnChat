@@ -32,11 +32,7 @@ const Login = ({ onLogin, clearUiMessage, uiMessage }) => {
     password: ""
   });
 
-  const emailRef = useRef();
-
-  const passwordRef = useRef();
-
-  clearUiMessage();
+  // clearUiMessage();
 
   const handleChange = (name, value) => {
     setAuthUser({
@@ -79,28 +75,31 @@ const Login = ({ onLogin, clearUiMessage, uiMessage }) => {
             <Title size="x-large">Login to your Account</Title>
           </div>
         </div>
-        <Form onSubmit={onSubmit}>
+        <Form
+          noValidate
+          onSubmit={onSubmit}
+        >
           <div className={styles.formItem}>
             <Input
-              ref={emailRef}
               required
-              type="text"
+              type="email"
               id="email"
               value={authUser.email}
               placeholder="Email"
-              validateType="email"
+              validate-type="email"
+              hasError={errors.email}
               onChange={value => handleChange("email", value)}
             />
           </div>
           <div className={styles.formItem}>
             <Input
-              ref={passwordRef}
               required
               type="password"
               id="password"
               value={authUser.password}
               placeholder="Password"
-              validateType="password"
+              validate-type="password"
+              hasError={errors.password}
               onChange={value => handleChange("password", value)}
             />
           </div>
