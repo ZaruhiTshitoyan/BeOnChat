@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -41,9 +41,24 @@ const Login = ({ onLogin, clearUiMessage, uiMessage }) => {
     });
   };
 
+  const handleFocus = (name, value) => {
+    setErrors({
+      ...errors,
+      [name]: value
+    });
+  };
+
+  const handleBlur = (name, value) => {
+    setErrors({
+      ...errors,
+      [name]: value
+    });
+  };
+
   const onSubmit = () => {
-    setErrors(isFormValid(authUser));
-    if (errors.email || errors.password) return null;
+    const checkedFields = isFormValid(authUser);
+    setErrors(checkedFields);
+    if (!authUser.email || !authUser.password) return null;
     clearUiMessage();
     onLogin({ email: authUser.email,
       password: authUser.password });
@@ -86,9 +101,13 @@ const Login = ({ onLogin, clearUiMessage, uiMessage }) => {
               id="email"
               value={authUser.email}
               placeholder="Email"
+              autocomplete={"off"}
               validate-type="email"
+              errorMessage={""}
               hasError={errors.email}
               onChange={value => handleChange("email", value)}
+              onFocus={value => handleFocus("email", value)}
+              onBlur={value => handleBlur("email", value)}
             />
           </div>
           <div className={styles.formItem}>
@@ -99,8 +118,11 @@ const Login = ({ onLogin, clearUiMessage, uiMessage }) => {
               value={authUser.password}
               placeholder="Password"
               validate-type="password"
+              errorMessage={""}
               hasError={errors.password}
               onChange={value => handleChange("password", value)}
+              onFocus={value => handleFocus("password", value)}
+              onBlur={value => handleBlur("password", value)}
             />
           </div>
           <div className={styles.uiWarningMessage}>{loginWarningMessage}</div>
