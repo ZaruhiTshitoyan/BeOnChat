@@ -7,10 +7,10 @@ import {
 const checkValidType = (values) => {
   const errors = {};
 
-  if (!values.email  || !validateEmail(values.email)) {
+  if (!values.email || !validateEmail(values.email)) {
     errors.email = "Email address invalid";
   }
-  if (!!values.password || !validatePassword(!values.password.value)) {
+  if (!values.password || !validatePassword(values.password)) {
     errors.password = "Password is incorrect";
   }
 
@@ -18,8 +18,8 @@ const checkValidType = (values) => {
 };
 
 const isFormValid = (values) => {
-  const isNotValid = checkValidType(values);
-  return isNotValid;
+  const checkedFields = checkValidType(values);
+  return checkedFields;
 };
   
 export default isFormValid;
