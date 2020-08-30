@@ -32,10 +32,13 @@ export const onRegister = userData => async dispatch => {
 
 export const onLogin = userData => async dispatch => {
   try {
-    const res = await Login(userData);
+    const res = await firebase_config
+      .auth()
+      .signInWithEmailAndPassword(userData.email, userData.password);
+    browserHistory.push("/");
     setToLocalStorage("loginToken", res.token);
-    const { username } = userData;
-    setToLocalStorage("username", username);
+    // const { username } = userData;
+    // setToLocalStorage("username", username);
     dispatch(onLoging());
     dispatch(showUiMessage({ type: ALERT_SUCCESS,
       message: "" }));
