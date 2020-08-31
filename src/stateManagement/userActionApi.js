@@ -17,36 +17,42 @@ import browserHistory from "@/helpers/history";
 import { ALERT_SUCCESS, ALERT_ERROR } from "./actionTypes";
 
 export const onRegister = userData => async dispatch => {
-  try {
-    const res = await Register(userData);
-    dispatch(onRegistering(userData, res.message));
-    dispatch(showUiMessage({ type: ALERT_SUCCESS,
-      message: res.message }));
-    browserHistory.push("/login");
-  } catch (err) {
-    dispatch(onRegisterFail(err.message));
-    dispatch(showUiMessage({ type: ALERT_ERROR,
-      message: err.message }));
-  }
+  return firebase_config
+    .auth()
+    .createUserWithEmailAndPassword(userData.email, userData.password)
+    .then(response => {
+      dispatch(onRegistering(userData, response.message));
+      dispatch(showUiMessage({ type: ALERT_SUCCESS,
+        message: response.message }));
+      browserHistory.push("/login");
+    })
+    .catch (error => {
+      dispatch(onRegisterFail(error.message));
+      dispatch(showUiMessage({ type: ALERT_ERROR,
+        message: error.message }));
+    });
 }; 
 
 export const onLogin = userData => async dispatch => {
-  try {
-    const res = await firebase_config
-      .auth()
-      .signInWithEmailAndPassword(userData.email, userData.password);
-    browserHistory.push("/");
-    setToLocalStorage("loginToken", res.token);
-    // const { username } = userData;
-    // setToLocalStorage("username", username);
-    dispatch(onLoging());
-    dispatch(showUiMessage({ type: ALERT_SUCCESS,
-      message: "" }));
-  } catch (err) {
-    dispatch(onLoginFail());
-    dispatch(showUiMessage({ type: ALERT_ERROR,
-      message: err.message }));
-  }
+  return firebase_config
+    .auth()
+    .signInWithEmailAndPassword(userData.email, userData.password)
+    .then(response => {
+      browserHistory.push("/");
+      console.log(response, "resfd");
+      setToLocalStorage("loginToken", response.token);
+      // const { username } = userData;
+      // setToLocalStorage("username", username);
+      dispatch(onLoging());
+      dispatch(showUiMessage({ type: ALERT_SUCCESS,
+        message: "" }));
+    })
+    .catch (error => {
+      dispatch(onLoginFail());
+      dispatch(showUiMessage({ type: ALERT_ERROR,
+        message: error.message }));
+
+    });
 };
 
 export const onLogout = () => dispatch => {
