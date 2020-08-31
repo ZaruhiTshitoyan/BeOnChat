@@ -1,121 +1,145 @@
 import React, { useState } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 
-import firebase_config from "@/config/firebase";
-
+import Form from "@/components/Form";
+import Title from "@/components/uiLibrary/Title";
 import Input from "@/components/uiLibrary/Input";
+import Button from "@/components/uiLibrary/Button";
 
-const Register = () => {
+import RenderUiMessages from "@/components/uiLibrary/uiMessages/RenderUiMessages";
+import { onRegister } from "@/stateManagement/userActionApi";
+import { clearUiMessage } from "@/stateManagement/actions/uiActionAlerts";
+import isFormValid from "@/utils/formValidation";
+
+import logoImage from "@/images/BeOnChat.png";
+
+import join from "@/styles/Join.css";
+import uiMessages from "@/styles/UiMessages.css";
+
+const styles = { ...join,
+  ...uiMessages };
+
+const Register = ({ onRegister, clearUiMessage, uiMessage }) => {
   const [user, setUser] = useState({
-    fullName: "",
+    username: "",
     email: "",
     password: "",
-    fireError: "",
-    formTitle: "Login",
-    loginButton: true
+    confirmPassword: ""
+  });
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: ""
   });
 
   const handleChange = (name, value) => {
-    console.log(name, value, 546);
     setUser({
       ...user,
       [name]: value
     });
   };
-  const login = (e) => {
-    e.preventDefault();
-    firebase_config
-      .auth()
-      .signInWithEmailAndPassword(user.email, user.password)
-      .catch((error) => {
-        setUser({
-          ...user,
-          fireError: error.message
-        });
-      });
-  };
-  const register = (e) => {
-    e.preventDefault();
-    firebase_config
-      .auth()
-      .createUserWithEmailAndPassword(user.email, user.password)
-      .catch((error) => {
-        setUser({
-          ...user,
-          fireError: error.message
-        });
-      });
-  };
-  const getAction = (action) => {
-    if (action === "reg") {
-      setUser({
-        ...user,
-        formTitle: "Register New User",
-        loginButton: false,
-        fireError: ""
-      });
-    } else {
-      setUser({
-        ...user,
-        formTitle: "Login",
-        loginButton: true,
-        fireError: ""
-      });
-    }
+
+  const handleFocus = (name, value) => {
+    setErrors({
+      ...errors,
+      [name]: value
+    });
   };
 
-  const errorNotification = user.fireError ? (
-    <div className={"Error"}>{user.fireError}</div>
-  ) : null;
-  const submitBtn = user.loginButton ? (
-    <input className="loginBtn" type="submit" onClick={login} value="Enter" />
-  ) : (
+  const handleBlur = (name, value) => {
+    setErrors({
+      ...errors,
+      [name]: value
+    });
+  };
+
+  const onSubmit = () => {
+    const checkedFields = isFormValid(user);
+    setErrors(checkedFields);
+    if (checkedFields.email || checkedFields.password) return null;
+    clearUiMessage();
+    onRegister({ email: user.email,
+      password: user.password });
+  };
+
+  const signupWarningMessage = (
     <>
-      <input type={"text"} placeholder={"username"} />
-      <input type={"text"} placeholder={"surname"} />
-      <input
-        className="loginBtn"
-        type="submit"
-        onClick={register}
-        value="Register"
-      />{" "}
+      Have an account?
+      {" "}
+      <NavLink to="/login" className={styles.linkMediumBlue}>
+        Log in
+      </NavLink>
     </>
-  );
-  const login_register = user.loginButton ? (
-    <button className="registerBtn" onClick={() => getAction("reg")}>
-      Register
-    </button>
-  ) : (
-    <button className="registerBtn" onClick={() => getAction("login")}>
-      Login
-    </button>
   );
 
   return (
-    <div className="form_block">
-      <div id={"title"}>{user.formTitle}</div>
-      <div className={"tile-block"}>
-        {errorNotification}
-        <form>
-          <Input
-            type={"text"}
-            value={user.email}
-            onChange={value => handleChange("email", value)}
-            name={"email"}
-            placeholder={"email"}
-          />
-          <Input
-            type={"password"}
-            value={user.password}
-            onChange={value => handleChange("password", value)}
-            name={"password"}
-            placeholder={"password"}
-          />
-          {submitBtn}
-        </form>
-        {login_register}
+    <div className={styles.joinContainer}>
+      <div className={styles.formWrapper}>
+        <RenderUiMessages
+          className={styles.uiMessage}
+          type="error"
+          userMessage={uiMessage}
+        >
+          {uiMessage}
+        </RenderUiMessages>
+        <div className={styles.formHeader}>
+          <div className={styles.formHeaderTitle}>
+            <img className={styles.rocketImage} src={logoImage} alt="logo" />
+            <Title size="x-large">Create your Account</Title>
+          </div>
+        </div>
+        <Form
+          noValidate
+          onSubmit={onSubmit}
+        >
+          <div className={styles.formItem}>
+            <Input
+              required
+              type="email"
+              id="email"
+              value={user.email}
+              placeholder="Email"
+              autocomplete={"off"}
+              validate-type="email"
+              errorMessage={errors.email}
+              hasError={errors.email}
+              onChange={value => handleChange("email", value)}
+              onFocus={value => handleFocus("email", value)}
+              onBlur={value => handleBlur("email", value)}
+            />
+          </div>
+          <div className={styles.formItem}>
+            <Input
+              required
+              type="password"
+              id="password"
+              value={user.password}
+              placeholder="Password"
+              validate-type="password"
+              errorMessage={errors.password}
+              hasError={errors.password}
+              onChange={value => handleChange("password", value)}
+              onFocus={value => handleFocus("password", value)}
+              onBlur={value => handleBlur("password", value)}
+            />
+          </div>
+          <div className={styles.uiWarningMessage}>{signupWarningMessage}</div>
+          <div className={styles.formItem}>
+            <Button type="submit">Sign up</Button>
+          </div>
+        </Form>
       </div>
     </div>
   );
 };
 
-export default Register;
+const mapStateToProps = ({ globalReducer }) => ({
+  uiMessage: globalReducer.uiMessage
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ onRegister,
+  clearUiMessage }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
