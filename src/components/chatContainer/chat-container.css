@@ -1,0 +1,28 @@
+.chat-container{
+    display: grid;
+    grid:
+    'search-container chat-title'78px
+    'conversation-list message-list'1fr
+    'message-container chat-form'78px
+    /275px 1fr
+
+;
+    min-width: 1200px;
+    max-width: 1500px;
+    max-height: 800px;
+    height: 95vh;
+    width: 100%;
+    background: #FFF;
+    border-radius: 10px;
+}
+
+.conversation-list,
+.message-container,
+.search-container{
+    background: slategray;
+}
+
+.chat-form,
+.chat-title{
+    background: #EEEEEE;
+}
