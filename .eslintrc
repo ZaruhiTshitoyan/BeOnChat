@@ -4,9 +4,9 @@
     "es6": true
   },
   "extends": [
-       "plugin:react/recommended",
+    //   "plugin:react/recommended",
     //   "airbnb",
-       "react-app"
+    //   "react-app"
   ],
   "parser": "babel-eslint",
   "globals": {
@@ -61,10 +61,12 @@
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "import/imports-first": 0,
+    "indent": ["error", 2],
     "semi": [2, "always"],
     "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
     "no-unexpected-multiline": "error",
     "space-in-parens": [2, "never"],
+    "space-before-blocks": "error",
     "space-infix-ops": "error",
     "key-spacing": [
       "error", {
@@ -88,8 +90,15 @@
         "maxBOF": 0
       }
     ],
-    "linebreak-style": 0,
-    "keyword-spacing": 0,
+    "linebreak-style": ["error", "unix"],
+    "keyword-spacing": ["error", { "after": true, "before": true }],
+    "quotes": [
+      2,
+      "double",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
     "no-use-before-define": 0,
     "no-restricted-syntax": 0,
     "prefer-const": 2,
